@@ -2,6 +2,8 @@
 
 CI/CD Pipeline example project
 
+![Build Backend](https://github.com/AlexanderPeter/cicd/actions/workflows/backend.yml/badge.svg)
+
 ## Backend
 
 ```bash
