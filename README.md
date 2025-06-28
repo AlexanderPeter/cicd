@@ -58,3 +58,44 @@ Open http://127.0.0.1:5000/
 
 pylint .
 ```
+
+## Database
+
+```bash
+
+cd database
+```
+
+### Create user and database
+
+```sql
+psql -U postgres -c "CREATE USER localuser WITH LOGIN;"
+psql -U postgres -c "CREATE DATABASE localdb OWNER localuser;"
+```
+
+### Ignore password for local login
+
+```sql
+psql -U postgres -c "SHOW hba_file;"
+```
+Change the line 
+`host    all             all             127.0.0.1/32            scram-sha-256`
+to
+`host    all             all             127.0.0.1/32            trust` 
+and
+`host    all             all             ::1/128                 scram-sha-256`
+to
+`host    all             all             ::1/128                 trust`
+
+Restart server with admin rights:
+```bash
+
+net stop postgresql-x64-17 && net start postgresql-x64-17
+```
+
+### Init database
+
+```bash
+
+psql -U localuser -d localdb -f schema.sql 
+```
