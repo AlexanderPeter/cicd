@@ -45,6 +45,12 @@ source .venv/Scripts/activate
 pip install -r requirements.txt
 ```
 
+### Generate model classes
+```bash
+
+source .env && sqlacodegen $DATABASE_URL --outfile generated/models.py
+```
+
 ### Start local server
 ```bash
 
