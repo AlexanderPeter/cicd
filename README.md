@@ -2,8 +2,8 @@
 
 CI/CD Pipeline example project
 
-![Build Frontend](https://github.com/AlexanderPeter/cicd/actions/workflows/frontend.yml/badge.svg)
-![Build Backend](https://github.com/AlexanderPeter/cicd/actions/workflows/backend.yml/badge.svg)
+[![Build Frontend](https://github.com/AlexanderPeter/cicd/actions/workflows/frontend.yml/badge.svg)](https://github.com/AlexanderPeter/cicd/actions/workflows/frontend.yml)
+[![Build Backend](https://github.com/AlexanderPeter/cicd/actions/workflows/backend.yml/badge.svg)](https://github.com/AlexanderPeter/cicd/actions/workflows/backend.yml)
 
 ## Frontend
 
@@ -36,12 +36,12 @@ npm run lint
 ```bash
 
 cd backend
+source .venv/Scripts/activate
 ```
 
 ### Prepare local environment
 ```bash
 
-source .venv/Scripts/activate
 pip install -r requirements.txt
 ```
 
