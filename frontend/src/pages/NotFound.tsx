@@ -1,21 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { CiSearch } from 'react-icons/ci';
-import { TbError404 } from 'react-icons/tb';
+import { CiSearch, TbError404 } from '../icons';
 
 export default function NotFound() {
   return (
-    <div class='dashboard'>
+    <div className='dashboard'>
       <Link to='/'>
-        <div class='panel shadow'>
-          <header class='titlebar'>
+        <div className='panel shadow'>
+          <header className='titlebar'>
             <h2>Zurück zur Hauptseite</h2>
           </header>
-          <div class='entry'>
+          <div className='entry'>
             <div style={{ position: 'relative', display: 'inline-block' }}>
               <CiSearch
                 size={400}
-                style={{ 'margin-top': 0 , 'margin-bottom': 0, 'margin-left': 100 , 'margin-right': 100}}
+                style={{ marginTop: 0, marginBottom: 0, marginLeft: 100, marginRight: 100 }}
               />
               <TbError404
                 size={200}

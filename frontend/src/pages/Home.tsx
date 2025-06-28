@@ -1,23 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaPlusCircle } from "react-icons/fa";
-import { FcCalendar } from 'react-icons/fc';
-import notFoundImage from '../assets/images/404.png';
-
+import { FcCalendar, FaPlusCircle } from '../icons';
 
 export default function Home() {
   return (
-    <div class='dashboard'>
+    <div className='dashboard'>
       <Link to="/create">
-        <div class='panel shadow'>
-          <header class='titlebar'>
+        <div className='panel shadow'>
+          <header className='titlebar'>
             <h2>Neue Terminumfrage erstellen</h2>
           </header>
-          <div class='entry'>
+          <div className='entry'>
             <div style={{ position: 'relative', display: 'inline-block' }}>
               <FcCalendar
                 size={300}
-                style={{ 'margin-top': 50 , 'margin-bottom': 50, 'margin-left': 150 , 'margin-right': 150}}
+                style={{ marginTop: 50, marginBottom: 50, marginLeft: 150, marginRight: 150 }}
               />
               <FaPlusCircle
                 size={100}
