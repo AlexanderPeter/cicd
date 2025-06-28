@@ -28,6 +28,7 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
+          path: frontend
 
       - name: Install dependencies
         run: npm ci
