@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { CiSearch, TbError404 } from '../icons';
 
-export default function NotFound() {
+export default function NotFoundPage() {
   return (
     <div className='dashboard'>
       <Link to='/'>

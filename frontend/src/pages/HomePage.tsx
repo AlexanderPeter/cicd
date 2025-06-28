@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FcCalendar, FaPlusCircle } from '../icons';
 
-export default function Home() {
+export default function HomePAge() {
   return (
     <div className='dashboard'>
       <Link to="/create">
