@@ -5,7 +5,7 @@ interface BannerProps {
   title?: string;
 }
 
-const Banner: React.FC<BannerProps> = ({ title = "Title" }) => {
+const Banner: React.FC<BannerProps> = ({ title = 'Title' }) => {
   return (
     <a href='/'>
       <div className={styles.banner} id='banner'>

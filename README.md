@@ -84,14 +84,15 @@ psql -U postgres -c "CREATE DATABASE localdb OWNER localuser;"
 ```sql
 psql -U postgres -c "SHOW hba_file;"
 ```
-Change the line 
-`host    all             all             127.0.0.1/32            scram-sha-256`
-to
-`host    all             all             127.0.0.1/32            trust` 
-and
-`host    all             all             ::1/128                 scram-sha-256`
-to
-`host    all             all             ::1/128                 trust`
+Change the following lines 
+
+Old: `host    all             all             127.0.0.1/32            scram-sha-256`
+
+New: `host    all             all             127.0.0.1/32            trust`
+
+Old: `host    all             all             ::1/128                 scram-sha-256`
+
+New: `host    all             all             ::1/128                 trust`
 
 Restart server with admin rights:
 ```bash
