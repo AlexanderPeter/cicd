@@ -9,7 +9,7 @@ type IconProps = React.SVGProps<SVGSVGElement> & {
   color?: string;
 };
 
-export const FcCalendar = (RawFcCalendar as unknown) as React.FC<IconProps>;
-export const FaPlusCircle = (RawFaPlusCircle as unknown) as React.FC<IconProps>;
-export const CiSearch = (RawCiSearch as unknown) as React.FC<IconProps>;
-export const TbError404 = (RawTbError404 as unknown) as React.FC<IconProps>;
+export const FcCalendar = RawFcCalendar as unknown as React.FC<IconProps>;
+export const FaPlusCircle = RawFaPlusCircle as unknown as React.FC<IconProps>;
+export const CiSearch = RawCiSearch as unknown as React.FC<IconProps>;
+export const TbError404 = RawTbError404 as unknown as React.FC<IconProps>;

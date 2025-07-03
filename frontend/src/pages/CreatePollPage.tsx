@@ -1,4 +1,4 @@
-import React, { useState }  from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CiSearch, TbError404 } from '../icons';
 import Banner from '../components/Banner/Banner';
@@ -35,36 +35,32 @@ export default function CreatePollPage() {
     }
   };
 
-
   return (
     <>
       <Banner title="Terminumfragen" />
-        <div className='dashboard'>
-          <div className='panel shadow'>
-            <header className='titlebar'>
-              <h2>Terminumfrage erstellen</h2>
-            </header>
-            <div className='entry'>
-              <div className='inputbar'>
-                <p className="label">Titel: </p>
-                <input
-                  type="text"
-                  className="input"
-                  placeholder="Meeting"
-                  value={pollTitle}
-                  onChange={(e) => setPollTitle(e.target.value)}
-                />
-              </div>
-              <button
+      <div className="dashboard">
+        <div className="panel shadow">
+          <header className="titlebar">
+            <h2>Terminumfrage erstellen</h2>
+          </header>
+          <div className="entry">
+            <div className="inputbar">
+              <p className="label">Titel: </p>
+              <input
+                type="text"
                 className="input"
-                onClick={handleCreatePoll}
-              >
-                Create
-              </button>
+                placeholder="Meeting"
+                value={pollTitle}
+                onChange={(e) => setPollTitle(e.target.value)}
+              />
             </div>
+            <button className="input" onClick={handleCreatePoll}>
+              Create
+            </button>
           </div>
         </div>
+      </div>
     </>
   );
-//           <p>Share this poll: http://localhost:3000/poll/{poll.code}</p>
+  //           <p>Share this poll: http://localhost:3000/poll/{poll.code}</p>
 }

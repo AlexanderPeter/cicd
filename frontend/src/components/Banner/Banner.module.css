@@ -1,28 +1,28 @@
 /* by class */
 
 .banner {
-    display: grid;
-    grid-template-columns: 1fr 4fr 1fr;
-    height: 100pt;
-    background-image: url('/src/assets/images/banner.png');
-    background-size: 100%;
-    font-size: large;
-    border-bottom: thin solid #cccccc;
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr;
+  height: 100pt;
+  background-image: url('/src/assets/images/banner.png');
+  background-size: 100%;
+  font-size: large;
+  border-bottom: thin solid #cccccc;
 }
 
 .banner > h1 {
-    font-size: 40pt;
-    grid-column-start: 2;
-    place-self: center center;
+  font-size: 40pt;
+  grid-column-start: 2;
+  place-self: center center;
 }
 
 .banner > div {
-    grid-column-start: 3;
-    place-self: end end;
+  grid-column-start: 3;
+  place-self: end end;
 }
 
 .logo {
-    height: 40pt;
-    margin: 5pt;
-    vertical-align: middle;
+  height: 40pt;
+  margin: 5pt;
+  vertical-align: middle;
 }

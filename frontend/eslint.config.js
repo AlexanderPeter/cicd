@@ -3,10 +3,11 @@ export default (async () => {
   const react = await import('eslint-plugin-react');
   const tsPlugin = await import('@typescript-eslint/eslint-plugin');
   const reactHooks = await import('eslint-plugin-react-hooks');
+  const prettierConfig = await import('eslint-config-prettier');
 
   return [
     {
-      ignores: ['node_modules/**', 'dist/**']
+      ignores: ['node_modules/**', 'dist/**'],
     },
     {
       languageOptions: {
@@ -14,25 +15,26 @@ export default (async () => {
         parserOptions: {
           ecmaVersion: 2020,
           sourceType: 'module',
-          ecmaFeatures: { jsx: true }
-        }
+          ecmaFeatures: { jsx: true },
+        },
       },
       plugins: {
         react: react.default,
         '@typescript-eslint': tsPlugin.default,
-        'react-hooks': reactHooks.default
+        'react-hooks': reactHooks.default,
       },
       rules: {
         'react/react-in-jsx-scope': 'off',
-        'semi': ['error', 'always'],
-        'quotes': ['error', 'single'],
-        '@typescript-eslint/explicit-module-boundary-types': 'off'
+        semi: ['error', 'always'],
+        quotes: ['error', 'single'],
+        '@typescript-eslint/explicit-module-boundary-types': 'off',
       },
       settings: {
         react: {
-          version: 'detect'
-        }
-      }
-    }
+          version: 'detect',
+        },
+      },
+    },
+    prettierConfig.default,
   ];
 })();
