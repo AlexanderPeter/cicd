@@ -1,3 +1,5 @@
+/* universal */
+
 * {
     margin: 0;
     padding: 0;
@@ -6,7 +8,7 @@
     font-family: Helvetica, Arial, sans-serif;
 }
 
-// by tag
+/* by tag */
 
 body {
     background-color: #fbfbfb;
@@ -36,7 +38,7 @@ p, label, fieldset, figure, h5 {
     padding: 0.5em;
 }
 
-// by class
+/* by class */
 
 .hidden {
     display: none !important;
@@ -65,7 +67,7 @@ p, label, fieldset, figure, h5 {
 .panel {
     width: fit-content;
     height: fit-content;
-    margin: 15pt;
+    margin: 35pt;
     padding: 3pt;
     border-radius: 3pt;
     background-color: #f0f0f0;
