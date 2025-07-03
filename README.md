@@ -25,7 +25,13 @@ npm run start
 ```
 Open http://127.0.0.1:3000/
 
-### Lint typescript code
+### Format code
+```bash
+
+npm run format
+```
+
+### Lint code
 ```bash
 
 npm run lint
@@ -59,7 +65,13 @@ python app.py
 
 Open http://127.0.0.1:5000/
 
-### Lint python code
+### Format code
+```bash
+black .
+...
+```
+
+### Lint code
 ```bash
 
 pylint .

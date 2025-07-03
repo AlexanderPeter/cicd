@@ -19,6 +19,7 @@ from generated.models import Poll
 app = Flask(__name__)
 CORS(app)
 
+
 def generate_unique_code(length=8):
     alphabet = string.ascii_letters + string.digits
     while True:
@@ -26,9 +27,11 @@ def generate_unique_code(length=8):
         if not session.query(Poll).filter_by(code=code).first():
             return code
 
+
 @app.route("/")
 def index():
     return "API is running"
+
 
 @app.route('/api/polls', methods=['POST'])
 def create_poll():
@@ -44,19 +47,21 @@ def create_poll():
     try:
         session.add(poll)
         session.commit()
-        return jsonify({
-            'message': 'Poll created successfully',
-            'poll': {
-                'id': poll.id,
-                'title': poll.title,
-                "code": poll.code
-            }
-        }), 201
+        return (
+            jsonify(
+                {
+                    'message': 'Poll created successfully',
+                    'poll': {'id': poll.id, 'title': poll.title, "code": poll.code},
+                }
+            ),
+            201,
+        )
     except Exception as e:
         session.rollback()
         return jsonify({"error": str(e)}), 500
     finally:
         session.close()
+
 
 if __name__ == '__main__':
     app.run(debug=True)
