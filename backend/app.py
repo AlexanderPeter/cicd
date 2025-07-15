@@ -79,5 +79,32 @@ def create_poll():
         session.close()
 
 
+@app.route("/api/polls/<code>", methods=["GET"])
+def get_poll_by_code(code):
+    db_poll = session.query(Poll).filter_by(code=code).first()
+    if db_poll is None:
+        return jsonify({"error": "Poll not found"}), 404
+
+    db_slots = session.query(Slot).filter_by(poll_id=db_poll.id).all()
+    slots = [
+        {"start": slot.start_time.isoformat(), "end": slot.end_time.isoformat()}
+        for slot in db_slots
+    ]
+
+    return (
+        jsonify(
+            {
+                "poll": {
+                    "id": db_poll.id,
+                    "title": db_poll.title,
+                    "code": db_poll.code,
+                    "slots": slots,
+                }
+            }
+        ),
+        200,
+    )
+
+
 if __name__ == '__main__':
     app.run(debug=True)
