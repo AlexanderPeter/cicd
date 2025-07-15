@@ -42,6 +42,22 @@ h5 {
   padding: 0.5em;
 }
 
+input,
+select {
+  font-size: medium;
+  border: thin solid #cccccc;
+  border-radius: 3pt;
+  background-color: #f7f7f7;
+  margin: 5pt;
+  padding: 5pt 10pt;
+}
+
+label {
+  margin: 5pt;
+  color: #666666;
+  font-size: medium;
+}
+
 /* by class */
 
 .hidden {
@@ -58,7 +74,6 @@ h5 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
 }
 
 .titlebar {
@@ -71,11 +86,12 @@ h5 {
 .panel {
   width: fit-content;
   height: fit-content;
-  margin: 35pt;
+  margin: 15pt;
   padding: 3pt;
   border-radius: 3pt;
   background-color: #f0f0f0;
   align-items: center;
+  text-align: center;
 }
 
 .shadow {
@@ -105,36 +121,6 @@ h5 {
   background-color: #d7d7d7;
   border: thin solid #999999;
   color: #333333;
-}
-
-.inputbar {
-  display: flex;
-  align-items: center;
-  position: relative;
-}
-
-.input {
-  font-size: medium;
-  border: thin solid #cccccc;
-  border-radius: 3pt;
-  background-color: #f7f7f7;
-  margin: 0.4em;
-  padding: 0.4em 0.3em;
-}
-
-input,
-select {
-  border: thin solid #cccccc;
-  border-radius: 3pt;
-  background-color: #f7f7f7;
-  margin: 0.4em;
-  padding: 0.4em 0.3em;
-}
-
-.label {
-  margin: 5pt;
-  color: #666666;
-  font-size: medium;
 }
 
 .icon {
@@ -180,4 +166,36 @@ select {
 .description {
   margin-top: 20px;
   font-size: 16pt;
+}
+
+.info {
+  margin: 5pt;
+  padding: 5pt 10pt;
+  color: #666666;
+  width: fit-content;
+  height: fit-content;
+  font-size: medium;
+}
+
+.alert {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-radius: 3pt;
+  border: thin solid #f5c6cb;
+}
+
+.form {
+  background-color: #fbfbfb;
+  width: 600pt;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.infobar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }

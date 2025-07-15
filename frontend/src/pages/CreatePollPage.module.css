@@ -1,0 +1,23 @@
+input {
+  width: 250pt;
+}
+
+label {
+  display: inline-block;
+  width: 100pt;
+}
+
+.inputbar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding-top: 1rem;
+}
+
+.buttonbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding-top: 1rem;
+}
