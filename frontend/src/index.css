@@ -46,7 +46,7 @@ input,
 select {
   font-size: medium;
   border: thin solid #cccccc;
-  border-radius: 3pt;
+  border-radius: 0.5rem;
   background-color: #f7f7f7;
   margin: 5pt;
   padding: 5pt 10pt;
@@ -88,7 +88,7 @@ label {
   height: fit-content;
   margin: 15pt;
   padding: 3pt;
-  border-radius: 3pt;
+  border-radius: 0.5rem;
   background-color: #f0f0f0;
   align-items: center;
   text-align: center;
@@ -107,7 +107,7 @@ label {
   display: inline-block;
   margin: 5pt;
   padding: 5pt 10pt;
-  border-radius: 3pt;
+  border-radius: 0.5rem;
   background-color: #f7f7f7;
   border: thin solid #cccccc;
   cursor: pointer;
@@ -198,4 +198,19 @@ label {
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
+}
+
+.inputbar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding-top: 1rem;
+}
+
+.buttonbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding-top: 1rem;
 }

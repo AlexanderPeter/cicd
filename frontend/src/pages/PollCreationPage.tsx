@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import { CiSearch, TbError404 } from '../icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTriangleExclamation, faClipboard } from '@fortawesome/free-solid-svg-icons';
-import styles from './CreatePollPage.module.css';
+import styles from './PollCreationPage.module.css';
 import Banner from '../components/Banner/Banner';
 
 const locales = {
@@ -90,7 +90,7 @@ export default function CreatePollPage() {
               <h2>Terminumfrage erstellen</h2>
             </div>
             <form onSubmit={handleSubmit(onSubmit)} className="form">
-              <div className={styles.inputbar}>
+              <div className="inputbar">
                 <label>Titel:</label>
                 <input
                   type="text"
@@ -104,7 +104,7 @@ export default function CreatePollPage() {
                   </div>
                 )}
               </div>
-              <div className={styles.inputbar}>
+              <div className="inputbar">
                 <Calendar
                   selectable
                   localizer={localizer}
@@ -118,9 +118,9 @@ export default function CreatePollPage() {
                   style={{ height: '400pt', padding: '1rem', width: '100%' }}
                 />
               </div>
-              <div className={styles.buttonbar}>
+              <div className="buttonbar">
                 <button type="submit" className="button">
-                  Create
+                  Erstellen
                 </button>
               </div>
             </form>
@@ -133,23 +133,23 @@ export default function CreatePollPage() {
                 <h2>Umfrage erstellt</h2>
               </div>
               <div className="entry">
-                <div className={styles.inputbar}>
+                <div className="inputbar">
                   <label>Link:</label>
                   <input
                     type="text"
                     placeholder="Meeting"
                     className="input"
                     readOnly
-                    value={`${window.location.origin}/poll/${createdPoll.code}`}
+                    value={`${window.location.origin}/polls/${createdPoll.code}`}
                     onClick={(e) => e.currentTarget.select()}
                   />
                 </div>
-                <div className={styles.buttonbar}>
+                <div className="buttonbar">
                   <button
                     className="button"
                     onClick={() =>
                       navigator.clipboard.writeText(
-                        `${window.location.origin}/poll/${createdPoll.code}`,
+                        `${window.location.origin}/polls/${createdPoll.code}`,
                       )
                     }
                   >
