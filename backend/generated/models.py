@@ -35,3 +35,20 @@ class Slot(Base):
     end_time: Mapped[datetime.datetime] = mapped_column(DateTime)
 
     poll: Mapped['Poll'] = relationship('Poll', back_populates='slot')
+    vote: Mapped[List['Vote']] = relationship('Vote', back_populates='slot')
+
+
+class Vote(Base):
+    __tablename__ = 'vote'
+    __table_args__ = (
+        ForeignKeyConstraint(['slot_id'], ['slot.id'], ondelete='CASCADE', name='fk_slot'),
+        PrimaryKeyConstraint('id', name='vote_pkey'),
+        UniqueConstraint('slot_id', 'participant_name', name='unique_vote_per_slot')
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    slot_id: Mapped[int] = mapped_column(Integer)
+    participant_name: Mapped[str] = mapped_column(Text)
+    choice: Mapped[str] = mapped_column(String(10))
+
+    slot: Mapped['Slot'] = relationship('Slot', back_populates='vote')

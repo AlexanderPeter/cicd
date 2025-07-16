@@ -10,7 +10,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
-from generated.models import Poll, Slot
+from generated.models import Poll, Slot, Vote
 
 load_dotenv()
 Base = declarative_base()
@@ -87,8 +87,12 @@ def get_poll_by_code(code):
 
     db_slots = session.query(Slot).filter_by(poll_id=db_poll.id).all()
     slots = [
-        {"start": slot.start_time.isoformat(), "end": slot.end_time.isoformat()}
-        for slot in db_slots
+        {
+            "id": db_slot.id,
+            "start": db_slot.start_time.isoformat(),
+            "end": db_slot.end_time.isoformat(),
+        }
+        for db_slot in db_slots
     ]
 
     return (
@@ -104,6 +108,33 @@ def get_poll_by_code(code):
         ),
         200,
     )
+
+
+@app.route('/api/votes', methods=['POST'])
+def save_vote():
+    data = request.json
+    participant = data.get('participant')
+    votes = data.get('votes')
+
+    if not participant or not isinstance(votes, list):
+        return jsonify({'error': 'Invalid payload'}), 400
+
+    for vote in votes:
+        slot_id = vote['slot_id']
+        choice = vote['choice']
+
+        existing_vote = (
+            session.query(Vote).filter_by(slot_id=slot_id, participant_name=participant).first()
+        )
+
+        if existing_vote:
+            existing_vote.choice = choice
+        else:
+            new_vote = Vote(slot_id=slot_id, participant_name=participant, choice=choice)
+            session.add(new_vote)
+
+    session.commit()
+    return jsonify({'message': 'Votes saved/updated successfully'}), 201
 
 
 if __name__ == '__main__':
