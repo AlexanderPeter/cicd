@@ -46,7 +46,7 @@ def create_poll():
         if not title or title.strip() == "":
             return jsonify({"error": "Missing title"}), 400
 
-        code = generate_unique_code()
+        code = generate_unique_code()  # use as id
         db_poll = Poll(title=title.strip(), code=code)
         session.add(db_poll)
         session.commit()
@@ -81,19 +81,18 @@ def create_poll():
 
 @app.route("/api/polls/<code>", methods=["GET"])
 def get_poll_by_code(code):
-    db_poll = session.query(Poll).filter_by(code=code).first()
-    if db_poll is None:
+    result = (
+        session.query(Poll, Slot)
+        .join(Slot, Poll.id == Slot.poll_id)
+        .filter(Poll.code == code)
+        .all()
+    )
+
+    if not result:
         return jsonify({"error": "Poll not found"}), 404
 
-    db_slots = session.query(Slot).filter_by(poll_id=db_poll.id).all()
-    slots = [
-        {
-            "id": db_slot.id,
-            "start": db_slot.start_time.isoformat(),
-            "end": db_slot.end_time.isoformat(),
-        }
-        for db_slot in db_slots
-    ]
+    db_poll = result[0][0]
+    db_slots = [row[1] for row in result]
 
     return (
         jsonify(
@@ -102,12 +101,41 @@ def get_poll_by_code(code):
                     "id": db_poll.id,
                     "title": db_poll.title,
                     "code": db_poll.code,
-                    "slots": slots,
+                    "slots": [
+                        {
+                            "id": slot.id,
+                            "start": slot.start_time.isoformat(),
+                            "end": slot.end_time.isoformat(),
+                        }
+                        for slot in db_slots
+                    ],
                 }
             }
         ),
         200,
     )
+
+
+@app.route('/api/votes', methods=['GET'])
+def get_votes_by_poll():
+    poll_id = request.args.get('poll_id')
+
+    if not poll_id:
+        return jsonify({'error': 'poll_id is required'}), 400
+
+    db_votes = (
+        session.query(Vote)
+        .join(Slot, Vote.slot_id == Slot.id)
+        .filter(Slot.poll_id == poll_id)
+        .all()
+    )
+
+    votes_data = [
+        {'slot_id': vote.slot_id, 'participant': vote.participant_name, 'choice': vote.choice}
+        for vote in db_votes
+    ]
+
+    return jsonify(votes_data), 200
 
 
 @app.route('/api/votes', methods=['POST'])
