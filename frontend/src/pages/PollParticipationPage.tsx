@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faQuestion, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faQuestion, faTimes, faEdit } from '@fortawesome/free-solid-svg-icons';
 import Banner from '../components/Banner/Banner';
 
 export default function PollParticipationPage() {
@@ -11,10 +11,13 @@ export default function PollParticipationPage() {
   const [error, setError] = useState(null);
   const [selections, setSelections] = useState({});
   const [slots, setSlots] = useState([]);
+  const [votesByParticipant, setVotesByParticipant] = useState({});
   const {
     register,
     handleSubmit,
     watch,
+    reset,
+    setValue,
     formState: { errors, isSubmitted },
   } = useForm();
   const participantName = watch('participantName');
@@ -30,6 +33,21 @@ export default function PollParticipationPage() {
       ...prev,
       [slotId]: value,
     }));
+  };
+
+  const loadVotes = (pollId) => {
+    fetch(`http://localhost:5000/api/votes?poll_id=${pollId}`)
+      .then((res) => res.json())
+      .then((votes) => {
+        const grouped = {};
+        votes.forEach((vote) => {
+          if (!grouped[vote.participant]) {
+            grouped[vote.participant] = {};
+          }
+          grouped[vote.participant][vote.slot_id] = vote.choice;
+        });
+        setVotesByParticipant(grouped);
+      });
   };
 
   const onSubmit = async (data) => {
@@ -54,6 +72,9 @@ export default function PollParticipationPage() {
 
       if (response.ok) {
         console.log('Erfolgreich gespeichert');
+        reset();
+        setSelections({});
+        loadVotes(poll.id);
       } else {
         console.error('Fehler beim Speichern');
       }
@@ -62,13 +83,26 @@ export default function PollParticipationPage() {
     }
   };
 
+  const handleEditParticipant = (participant, voteMap) => {
+    setValue('participantName', participant);
+
+    const updatedSelections = {};
+    poll.slots.forEach((slot) => {
+      updatedSelections[slot.id] = voteMap[slot.id] || '';
+    });
+    setSelections(updatedSelections);
+  };
+
   useEffect(() => {
     fetch(`http://localhost:5000/api/polls/${code}`)
       .then((res) => {
         if (!res.ok) throw new Error('Poll not found');
         return res.json();
       })
-      .then((data) => setPoll(data.poll))
+      .then((data) => {
+        setPoll(data.poll);
+        loadVotes(data.poll.id);
+      })
       .catch((err) => setError(err.message));
   }, [code]);
 
@@ -91,9 +125,18 @@ export default function PollParticipationPage() {
                     <th></th>
                     {poll.slots.map((slot) => (
                       <th key={slot.id} style={{ padding: '0.5rem', textAlign: 'center' }}>
-                        {new Date(slot.start).toLocaleString()}
+                        {new Date(slot.start).toLocaleDateString()}
+                        <br />
+                        <br />
+                        {new Date(slot.start).toLocaleTimeString([], {
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        })}
                         <br />–<br />
-                        {new Date(slot.end).toLocaleTimeString()}
+                        {new Date(slot.end).toLocaleTimeString([], {
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        })}
                       </th>
                     ))}
                   </tr>
@@ -119,7 +162,7 @@ export default function PollParticipationPage() {
                                 style={{
                                   cursor: 'pointer',
                                   borderRadius: '0.5rem',
-                                  backgroundColor: isSelected ? activeColor : 'white',
+                                  backgroundColor: isSelected ? activeColor : '#f7f7f7',
                                   color: isSelected ? 'white' : '#666666',
                                   width: '1rem',
                                   height: '1rem',
@@ -145,6 +188,58 @@ export default function PollParticipationPage() {
                         </div>
                       </td>
                     ))}
+                  </tr>
+                  {Object.entries(votesByParticipant).map(([participant, voteMap]) => (
+                    <tr key={participant}>
+                      <td style={{ textAlign: 'left' }}>
+                        <button
+                          type="button"
+                          className="button"
+                          onClick={() => handleEditParticipant(participant, voteMap)}
+                        >
+                          <FontAwesomeIcon icon={faEdit} />
+                        </button>
+                        {participant}
+                      </td>
+                      {poll.slots.map((slot) => {
+                        const voteValue = voteMap[slot.id];
+                        const option = options.find((opt) => opt.value === voteValue);
+
+                        return (
+                          <td key={slot.id}>
+                            {option ? (
+                              <FontAwesomeIcon icon={option.icon} color={option.activeColor} />
+                            ) : (
+                              '–'
+                            )}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  ))}
+                  <tr>
+                    <td>
+                      <strong>Total</strong>
+                    </td>
+                    {poll.slots.map((slot) => {
+                      let yesCount = 0;
+                      let maybeCount = 0;
+
+                      Object.values(votesByParticipant).forEach((voteMap) => {
+                        const vote = voteMap[slot.id];
+                        if (vote === 'yes') yesCount++;
+                        if (vote === 'maybe') maybeCount++;
+                      });
+
+                      const totalDisplay =
+                        maybeCount > 0 ? `${yesCount}–${yesCount + maybeCount}` : `${yesCount}`;
+
+                      return (
+                        <td key={slot.id} style={{ textAlign: 'center', fontWeight: 'bold' }}>
+                          {totalDisplay}
+                        </td>
+                      );
+                    })}
                   </tr>
                 </tbody>
               </table>
