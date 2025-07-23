@@ -77,6 +77,12 @@ black .
 pylint .
 ```
 
+### Execute tests
+```bash
+
+pytest
+```
+
 ## Database
 
 ```bash

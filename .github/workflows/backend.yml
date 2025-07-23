@@ -44,3 +44,14 @@ jobs:
         run: |
           source .venv/bin/activate
           pylint . --fail-under=8.0
+
+      - name: Run tests
+        run: |
+          source .venv/bin/activate
+          pytest --cov --cov-report=xml --cov-report=html
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: backend/htmlcov/
