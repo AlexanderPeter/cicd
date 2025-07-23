@@ -4,12 +4,14 @@ from sqlalchemy import create_engine, event
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
 
+# Must set DATABASE_URL *before* importing modules (e.g. app.py) that read it!
+TEST_DB_URL = "sqlite:///:memory:"
+os.environ["DATABASE_URL"] = TEST_DB_URL
+
+# pylint: disable=C0413 # Import deliberately placed after setting env var
 from generated.models import Base
 from app import create_app
 from persistence import database
-
-TEST_DB_URL = "sqlite:///:memory:"
-os.environ["DATABASE_URL"] = TEST_DB_URL
 
 engine = create_engine(TEST_DB_URL, connect_args={"check_same_thread": False}, poolclass=StaticPool)
 
@@ -26,7 +28,7 @@ def enable_sqlite_fk_constraints(dbapi_connection, _):
 
 
 @pytest.fixture(scope="function")
-def app():
+def test_app():
     Base.metadata.create_all(bind=engine)
     flask_app = create_app()
     flask_app.config["TESTING"] = True
@@ -35,8 +37,8 @@ def app():
 
 
 @pytest.fixture
-def client(app):
-    return app.test_client()
+def client(test_app):
+    return test_app.test_client()
 
 
 @pytest.fixture
