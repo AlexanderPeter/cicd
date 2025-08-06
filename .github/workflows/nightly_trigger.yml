@@ -26,7 +26,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: backend-coverage
-          path: .
+          path: backend
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
