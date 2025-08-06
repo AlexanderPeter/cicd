@@ -2,25 +2,35 @@
 name: Nightly CI/CD Pipeline
 
 on:
-#  schedule:
-#    - cron: '0 0 * * *'
+  #  schedule:
+  #    - cron: '0 0 * * *'
   workflow_dispatch:
 
 jobs:
   job_build_backend:
     uses: ./.github/workflows/backend_job.yml
 
+  job_build_frontend:
+    uses: ./.github/workflows/frontend_job.yml
+
   job_sonar_analysis:
     name: Start sonar analysis
     runs-on: ubuntu-latest
     needs:
       - job_build_backend
+      - job_build_frontend
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Download frontend coverage artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend-coverage
+          path: frontend/coverage
 
       - name: Download backend coverage artifact
         uses: actions/download-artifact@v4
