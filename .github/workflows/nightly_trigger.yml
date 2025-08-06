@@ -7,18 +7,18 @@ on:
   workflow_dispatch:
 
 jobs:
-  job_build_python:
+  job_build_backend:
     uses: ./.github/workflows/backend_job.yml
 
-  job_build_typescript:
+  job_build_frontend:
     uses: ./.github/workflows/frontend_job.yml
 
   job_sonar_analysis:
     name: Start sonar analysis
     runs-on: ubuntu-latest
     needs:
-      - job_build_python
-      - job_build_typescript
+      - job_build_backend
+      - job_build_frontend
 
     steps:
       - name: Checkout repository
@@ -38,3 +38,7 @@ jobs:
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
+        with:
+          projectBaseDir: .
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
