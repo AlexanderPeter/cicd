@@ -23,6 +23,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Download frontend coverage artifact
         uses: actions/download-artifact@v4
@@ -34,7 +36,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: backend-coverage
-          path: backend/coverage
+          path: backend
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
