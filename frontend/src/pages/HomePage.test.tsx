@@ -8,7 +8,7 @@ describe('HomePage Component', () => {
     render(
       <MemoryRouter>
         <HomePage />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Terminumfragen');
   });
@@ -17,7 +17,7 @@ describe('HomePage Component', () => {
     render(
       <MemoryRouter>
         <HomePage />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
     const link = screen.getByRole('link', { name: /Neue Terminumfrage erstellen/i });
     expect(link).toHaveAttribute('href', '/create');
