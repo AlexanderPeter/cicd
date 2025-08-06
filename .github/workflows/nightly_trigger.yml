@@ -28,13 +28,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: frontend-coverage
-          path: coverage/frontend
+          path: frontend/coverage
 
       - name: Download backend coverage artifact
         uses: actions/download-artifact@v4
         with:
           name: backend-coverage
-          path: coverage/backend
+          path: backend/coverage
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2

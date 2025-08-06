@@ -2,14 +2,18 @@
 
 CI/CD Pipeline example project
 
-[![Build Frontend](https://github.com/AlexanderPeter/cicd/actions/workflows/frontend.yml/badge.svg)](https://github.com/AlexanderPeter/cicd/actions/workflows/frontend.yml)
-[![Build Backend](https://github.com/AlexanderPeter/cicd/actions/workflows/backend.yml/badge.svg)](https://github.com/AlexanderPeter/cicd/actions/workflows/backend.yml)
+[![Build Frontend](https://github.com/AlexanderPeter/cicd/actions/workflows/frontend_trigger.yml/badge.svg)](https://github.com/AlexanderPeter/cicd/actions/workflows/frontend.yml)
+[![Build Backend](https://github.com/AlexanderPeter/cicd/actions/workflows/backend_trigger.yml/badge.svg)](https://github.com/AlexanderPeter/cicd/actions/workflows/backend.yml)
+[![Nightly Build](https://github.com/AlexanderPeter/cicd/actions/workflows/nightly_trigger.yml/badge.svg)](https://github.com/AlexanderPeter/cicd/actions/workflows/backend.yml)
+
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=AlexanderPeter_cicd&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=AlexanderPeter_cicd)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=AlexanderPeter_cicd&metric=coverage)](https://sonarcloud.io/summary/new_code?id=AlexanderPeter_cicd)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=AlexanderPeter_cicd&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=AlexanderPeter_cicd)
+
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=AlexanderPeter_cicd&metric=bugs)](https://sonarcloud.io/summary/new_code?id=AlexanderPeter_cicd)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=AlexanderPeter_cicd&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=AlexanderPeter_cicd)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=AlexanderPeter_cicd&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=AlexanderPeter_cicd)
-[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=AlexanderPeter_cicd&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=AlexanderPeter_cicd)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=AlexanderPeter_cicd&metric=coverage)](https://sonarcloud.io/summary/new_code?id=AlexanderPeter_cicd)
+
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=AlexanderPeter_cicd&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=AlexanderPeter_cicd)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=AlexanderPeter_cicd&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=AlexanderPeter_cicd)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=AlexanderPeter_cicd&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=AlexanderPeter_cicd)
