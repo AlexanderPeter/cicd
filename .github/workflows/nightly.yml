@@ -1,0 +1,37 @@
+
+name: Nightly CI/CD Pipeline
+
+on:
+#  schedule:
+#    - cron: '0 0 * * *'
+  workflow_dispatch:
+#  workflow_run:
+#    workflows: ["Backend CI", "Frontend CI"]
+#    types:
+#      - completed
+
+jobs:
+  job_sonar_analysis:
+    name: Start sonar analysis
+    runs-on: ubuntu-latest
+    if: >
+      ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download frontend coverage artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend-coverage
+          path: coverage/frontend
+
+      - name: Download backend coverage artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: backend-coverage
+          path: coverage/backend
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v2
