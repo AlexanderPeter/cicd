@@ -14,7 +14,9 @@
     "lint": "eslint . --fix",
     "lint-check": "eslint .",
     "test": "jest",
-    "test-coverage": "jest --coverage"
+    "test-coverage": "jest --coverage",
+    "e2e": "testcafe chrome e2e",
+    "e2e-headless": "testcafe chrome:headless e2e"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
@@ -50,7 +52,8 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^30.0.5",
     "jest-environment-jsdom": "^30.0.5",
-    "prettier": "^3.6.2"
+    "prettier": "^3.6.2",
+    "testcafe": "^3.7.2"
   },
   "browserslist": {
     "production": [
