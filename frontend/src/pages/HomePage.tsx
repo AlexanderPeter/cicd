@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { FcCalendar, FaPlusCircle } from '../icons';
 import Banner from '../components/Banner/Banner';
 
-export default function HomePAge() {
+export default function HomePage() {
   return (
     <>
       <Banner title="Terminumfragen" />

@@ -37,6 +37,12 @@ npm run format
 npm run lint
 ```
 
+### Execute tests
+```bash
+
+npm run test
+```
+
 ## Backend
 
 ```bash
