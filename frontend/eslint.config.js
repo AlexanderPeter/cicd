@@ -10,6 +10,7 @@ export default (async () => {
       ignores: ['node_modules/**', 'dist/**'],
     },
     {
+      files: ['**/*.{ts,tsx,js,jsx,cjs,mjs}'],
       languageOptions: {
         parser: tsParser.default,
         parserOptions: {
