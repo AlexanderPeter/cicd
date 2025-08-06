@@ -2,14 +2,7 @@
 name: Build frontend
 
 on:
-  push:
-    paths:
-      - 'frontend/**'
-      - '.github/workflows/frontend.yml'
-  pull_request:
-    paths:
-      - 'frontend/**'
-      - '.github/workflows/frontend.yml'
+  workflow_call:
 
 jobs:
   job_build_typescript:

@@ -1,0 +1,16 @@
+
+name: Trigger frontend build
+
+on:
+  push:
+    paths:
+      - 'frontend/**'
+      - '.github/workflows/frontend.yml'
+  pull_request:
+    paths:
+      - 'frontend/**'
+      - '.github/workflows/frontend.yml'
+
+jobs:
+  job_build_frontend:
+    uses: ./.github/workflows/frontend_job.yml

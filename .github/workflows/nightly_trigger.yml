@@ -5,12 +5,14 @@ on:
 #  schedule:
 #    - cron: '0 0 * * *'
   workflow_dispatch:
-#  workflow_run:
-#    workflows: ["Backend CI", "Frontend CI"]
-#    types:
-#      - completed
 
 jobs:
+  job_build_python:
+    uses: ./.github/workflows/backend_job.yml
+
+  job_build_typescript:
+    uses: ./.github/workflows/frontend_job.yml
+
   job_sonar_analysis:
     name: Start sonar analysis
     runs-on: ubuntu-latest
