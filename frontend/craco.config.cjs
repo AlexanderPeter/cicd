@@ -5,6 +5,6 @@ module.exports = {
         babelLoaderOptions.plugins = (babelLoaderOptions.plugins || []).concat('istanbul');
       }
       return babelLoaderOptions;
-    }
-  }
+    },
+  },
 };
