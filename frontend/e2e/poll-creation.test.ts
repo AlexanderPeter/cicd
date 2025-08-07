@@ -3,7 +3,9 @@ import * as fs from 'fs';
 
 const getCoverage = ClientFunction(() => (window as any).__coverage__);
 
-fixture`Umfrage E2E`.page`http://localhost:3000`;
+fixture`Umfrage E2E`.page`http://localhost:3000`.beforeEach(async (t) => {
+  await t.setNativeDialogHandler(() => true);
+});
 
 test('Neue Terminumfrage erstellen und Link kopieren', async (t) => {
   const createPollTile = Selector('div').withText('Neue Terminumfrage erstellen');

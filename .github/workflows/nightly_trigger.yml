@@ -45,6 +45,11 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Initialize database schema
+        working-directory: database
+        run: |
+          psql postgresql://localuser:localpass@127.0.0.1:5432/localdb -f schema.sql
+
       - name: Set up python
         uses: actions/setup-python@v5
         with:
@@ -115,6 +120,11 @@ jobs:
       - name: Run e2e tests
         working-directory: frontend
         run: npm run e2e-headless
+
+      - name: Show backend logs
+        if: always()
+        working-directory: backend
+        run: cat nohup.out || echo "No backend logs"
 
       # --------------- Analyze sonar ---------------
 
