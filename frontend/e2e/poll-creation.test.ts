@@ -1,4 +1,7 @@
 import { Selector, ClientFunction } from 'testcafe';
+import * as fs from 'fs';
+
+const getCoverage = ClientFunction(() => (window as any).__coverage__);
 
 fixture`Umfrage E2E`.page`http://localhost:3000`;
 
@@ -16,4 +19,7 @@ test('Neue Terminumfrage erstellen und Link kopieren', async (t) => {
   const pollLink = await linkInput.value;
   console.log('Link:', pollLink);
   await t.expect(pollLink).contains('/polls/', 'Poll-Link ist nicht korrekt');
+
+  const coverage = await getCoverage();
+  fs.writeFileSync('./e2e/coverage.json', JSON.stringify(coverage));
 });
