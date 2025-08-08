@@ -1,7 +1,5 @@
-import { Selector, ClientFunction } from 'testcafe';
-import * as fs from 'fs';
-
-const getCoverage = ClientFunction(() => (window as any).__coverage__);
+import { Selector } from 'testcafe';
+import { saveCoverage } from './utils/saveCoverage';
 
 fixture`Umfrage E2E`.page`http://localhost:3000`.beforeEach(async (t) => {
   await t.setNativeDialogHandler(() => true);
@@ -22,6 +20,5 @@ test('Neue Terminumfrage erstellen und Link kopieren', async (t) => {
   console.log('Link:', pollLink);
   await t.expect(pollLink).contains('/polls/', 'Poll-Link ist nicht korrekt');
 
-  const coverage = await getCoverage();
-  fs.writeFileSync('./e2e/coverage.json', JSON.stringify(coverage));
+  await saveCoverage('poll-creation');
 });

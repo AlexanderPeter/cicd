@@ -73,7 +73,7 @@ export default function CreatePollPage() {
         console.log('Poll created successfully:');
       } else {
         const errorText = await response.text();
-        alert('Failed to create poll:', errorText);
+        alert(`Failed to create poll: ${errorText}`);
       }
     } catch (error) {
       console.error('Error:', error);
@@ -100,7 +100,9 @@ export default function CreatePollPage() {
                 />
                 {isSubmitted && errors.pollTitle?.type === 'required' && (
                   <div className="info alert">
-                    <FontAwesomeIcon icon={faTriangleExclamation} /> {errors.pollTitle.message}
+                    <>
+                      <FontAwesomeIcon icon={faTriangleExclamation} /> {errors.pollTitle.message}
+                    </>
                   </div>
                 )}
               </div>

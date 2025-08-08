@@ -96,7 +96,7 @@ jobs:
         working-directory: backend
         run: |
           source .venv/bin/activate
-          nohup python app.py &
+          python app.py > backend.log 2>&1 &
 
       - name: Start frontend server with coverage
         working-directory: frontend
@@ -124,9 +124,22 @@ jobs:
       - name: Show backend logs
         if: always()
         working-directory: backend
-        run: cat nohup.out || echo "No backend logs"
+        run: cat backend.log || echo "No backend logs"
+
+      - name: Upload e2e screenshots (on failure)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-failure-screenshots
+          path: frontend/e2e/screenshots
 
       # --------------- Analyze sonar ---------------
+
+      - name: Download backend coverage artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: backend-coverage
+          path: backend
 
       - name: Download frontend coverage artifact
         uses: actions/download-artifact@v4
@@ -134,11 +147,9 @@ jobs:
           name: frontend-coverage
           path: frontend/coverage
 
-      - name: Download backend coverage artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: backend-coverage
-          path: backend
+      - name: Merge coverage reports
+        working-directory: frontend
+        run: npm run coverage-merge
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
