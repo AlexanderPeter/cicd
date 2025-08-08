@@ -19,6 +19,7 @@ def create_app():
 
 if __name__ == "__main__":
     import logging
+
     logging.basicConfig(level=logging.DEBUG)
     flask_app = create_app()
     flask_app.run(debug=True, host="0.0.0.0", port=5000)
