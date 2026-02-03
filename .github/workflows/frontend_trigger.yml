@@ -2,6 +2,7 @@
 name: Trigger frontend build
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - 'frontend/**'

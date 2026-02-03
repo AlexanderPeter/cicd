@@ -2,6 +2,7 @@
 name: Trigger backend build
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - 'backend/**'

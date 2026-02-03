@@ -2,9 +2,9 @@
 
 CI/CD Pipeline example project
 
-[![Build Frontend](https://github.com/AlexanderPeter/cicd/actions/workflows/frontend_trigger.yml/badge.svg)](https://github.com/AlexanderPeter/cicd/actions/workflows/frontend.yml)
-[![Build Backend](https://github.com/AlexanderPeter/cicd/actions/workflows/backend_trigger.yml/badge.svg)](https://github.com/AlexanderPeter/cicd/actions/workflows/backend.yml)
-[![Nightly Build](https://github.com/AlexanderPeter/cicd/actions/workflows/nightly_trigger.yml/badge.svg)](https://github.com/AlexanderPeter/cicd/actions/workflows/backend.yml)
+[![Build Frontend](https://github.com/AlexanderPeter/cicd/actions/workflows/frontend_trigger.yml/badge.svg)](https://github.com/AlexanderPeter/cicd/actions/workflows/frontend_trigger.yml)
+[![Build Backend](https://github.com/AlexanderPeter/cicd/actions/workflows/backend_trigger.yml/badge.svg)](https://github.com/AlexanderPeter/cicd/actions/workflows/backend_trigger.yml)
+[![Nightly Build](https://github.com/AlexanderPeter/cicd/actions/workflows/nightly_trigger.yml/badge.svg)](https://github.com/AlexanderPeter/cicd/actions/workflows/nightly_trigger.yml)
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=AlexanderPeter_cicd&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=AlexanderPeter_cicd)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=AlexanderPeter_cicd&metric=coverage)](https://sonarcloud.io/summary/new_code?id=AlexanderPeter_cicd)
@@ -113,14 +113,14 @@ cd database
 
 ### Create user and database
 
-```sql
+```bash
 psql -U postgres -c "CREATE USER localuser WITH LOGIN;"
 psql -U postgres -c "CREATE DATABASE localdb OWNER localuser;"
 ```
 
 ### Ignore password for local login
 
-```sql
+```bash
 psql -U postgres -c "SHOW hba_file;"
 ```
 Change the following lines 
