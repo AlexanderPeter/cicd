@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faQuestion, faTimes, faEdit } from '@fortawesome/free-solid-svg-icons';
 import Banner from '../components/Banner/Banner';
 
+const API_BASE = process.env.REACT_APP_API_BASE;
+
 export default function PollParticipationPage() {
   const { code } = useParams();
   const [poll, setPoll] = useState(null);
@@ -36,7 +38,7 @@ export default function PollParticipationPage() {
   };
 
   const loadVotes = (pollId) => {
-    fetch(`http://localhost:5000/api/votes?poll_id=${pollId}`)
+    fetch(`${API_BASE}/votes?poll_id=${pollId}`)
       .then((res) => res.json())
       .then((votes) => {
         const grouped = {};
@@ -62,7 +64,7 @@ export default function PollParticipationPage() {
     };
 
     try {
-      const response = await fetch('http://localhost:5000/api/votes', {
+      const response = await fetch(`${API_BASE}/votes`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -94,7 +96,7 @@ export default function PollParticipationPage() {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/polls/${code}`)
+    fetch(`${API_BASE}/polls/${code}`)
       .then((res) => {
         if (!res.ok) throw new Error('Poll not found');
         return res.json();

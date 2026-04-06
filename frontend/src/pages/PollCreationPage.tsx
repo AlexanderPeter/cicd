@@ -12,6 +12,8 @@ import { faTriangleExclamation, faClipboard } from '@fortawesome/free-solid-svg-
 import styles from './PollCreationPage.module.css';
 import Banner from '../components/Banner/Banner';
 
+const API_BASE = process.env.REACT_APP_API_BASE;
+
 const locales = {
   'en-US': require('date-fns/locale/en-US'),
 };
@@ -59,7 +61,7 @@ export default function CreatePollPage() {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/polls', {
+      const response = await fetch(`${API_BASE}/polls`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
