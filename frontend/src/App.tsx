@@ -7,12 +7,12 @@ import PollParticipationPage from './pages/PollParticipationPage';
 
 export default function App() {
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="*" element={<NotFoundPage />} />
         <Route path="/create" element={<PollCreationPage />} />
         <Route path="/polls/:code" element={<PollParticipationPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
   );
