@@ -7,11 +7,11 @@ interface BannerProps {
 
 const Banner: React.FC<BannerProps> = ({ title = 'Title' }) => {
   return (
-    <a href="/">
+    <Link to="/">
       <div className={styles.banner} id="banner">
         <h1>{title}</h1>
       </div>
-    </a>
+    </Link>
   );
 };
 

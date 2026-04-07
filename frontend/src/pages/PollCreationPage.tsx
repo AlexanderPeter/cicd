@@ -144,7 +144,7 @@ export default function CreatePollPage() {
                     placeholder="Meeting"
                     className="input"
                     readOnly
-                    value={`${window.location.origin}/polls/${createdPoll.code}`}
+                    value={`${window.location.origin}${process.env.PUBLIC_URL}/polls/${createdPoll.code}`}
                     onClick={(e) => e.currentTarget.select()}
                   />
                 </div>
