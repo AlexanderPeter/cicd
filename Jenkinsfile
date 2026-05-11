@@ -33,8 +33,37 @@ pipeline {
                 }
             }
         }
+
+        stage('SonarQube Analysis') {
+            when {
+                branch 'develop'
+            }
+            steps {
+                sh """
+                    echo "Starting SonarQube analysis of $PROJECT_NAME"
+                    echo "SONAR_SCANNER_OPTS=$SONAR_SCANNER_OPTS"
+                    echo "NODE_OPTIONS=$NODE_OPTIONS"
+                """
+                script {
+                    def scannerHome = tool 'sonar-scanner'
+                    withSonarQubeEnv('SonarQube') {
+                        sh """
+                        ${scannerHome}/bin/sonar-scanner \
+                          -Dsonar.projectKey=${PROJECT_NAME} \
+                          -Dsonar.branch.name=${BRANCH_NAME}
+                        """
+                    }
+                }
+            }
+        }
 		
         stage('Deploy Frontend') {
+            when {
+                anyOf {
+                    branch 'master'
+                    branch 'develop'
+                }
+            }
             steps {
                 sh '''
                     echo "Deploying frontend to $TARGET_DIR"
@@ -50,7 +79,7 @@ pipeline {
 
     post {
         always {
-            cleanWs()
+            deleteDir()
         }
     }
 }
