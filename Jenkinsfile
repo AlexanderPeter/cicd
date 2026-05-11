@@ -23,7 +23,7 @@ pipeline {
             steps {
                 dir('frontend') {
                     sh '''
-		                npm ci
+		                npm install
 				        GENERATE_SOURCEMAP=false \
         		        NODE_OPTIONS="--max-old-space-size=1024" \
         		        PUBLIC_URL=/projects/${PROJECT_NAME}/${BRANCH_NAME} \
