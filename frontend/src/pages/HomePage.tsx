@@ -1,14 +1,13 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import { FcCalendar, FaPlusCircle } from '../icons';
 import Banner from '../components/Banner/Banner';
+import { FaPlusCircle, FcCalendar } from '../icons';
 
 export default function HomePage() {
   return (
     <>
       <Banner title="Terminumfragen" />
       <div className="dashboard">
-        <Link to="/create">
+        <Link to="./create">
           <div className="panel shadow">
             <header className="titlebar">
               <h2>Neue Terminumfrage erstellen</h2>

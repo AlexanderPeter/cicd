@@ -1,14 +1,13 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import { CiSearch, TbError404 } from '../icons';
 import Banner from '../components/Banner/Banner';
+import { CiSearch, TbError404 } from '../icons';
 
 export default function NotFoundPage() {
   return (
     <>
       <Banner title="Terminumfragen" />
       <div className="dashboard">
-        <Link to="/">
+        <Link to=".">
           <div className="panel shadow">
             <header className="titlebar">
               <h2>Zurück zur Hauptseite</h2>
