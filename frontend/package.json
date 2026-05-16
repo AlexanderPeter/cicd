@@ -1,26 +1,16 @@
 {
-  "name": "frontend",
-  "type": "module",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "author": "alexander.peter@bzz.ch",
-  "license": "MIT",
-  "scripts": {
-    "tsc": "tsc",
-    "build": "react-scripts build",
-    "serve": "serve -s build",
-    "start": "react-scripts start",
-    "start-coverage": "cross-env NODE_ENV=coverage craco start",
-    "format": "prettier --write .",
-    "format-check": "prettier --check .",
-    "lint": "eslint . --fix",
-    "lint-check": "eslint .",
-    "test": "jest",
-    "test-coverage": "jest --coverage",
-    "e2e": "testcafe chrome e2e --client-logs --reporter spec --screenshots-on-fails --screenshots ./e2e/screenshots",
-    "e2e-headless": "testcafe chrome:headless e2e --client-logs --reporter spec --screenshots-on-fails --screenshots ./e2e/screenshots",
-    "coverage-merge": "node scripts/merge-coverage.cjs"
+  "browserslist": {
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ],
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ]
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
@@ -36,6 +26,7 @@
     "react-scripts": "^5.0.1",
     "serve": "^14.2.6"
   },
+  "description": "",
   "devDependencies": {
     "@babel/preset-env": "^7.28.0",
     "@babel/preset-react": "^7.27.1",
@@ -66,16 +57,25 @@
     "prettier": "^3.6.2",
     "testcafe": "^3.7.2"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+  "homepage": ".",
+  "license": "MIT",
+  "main": "index.js",
+  "name": "frontend",
+  "scripts": {
+    "build": "react-scripts build",
+    "coverage-merge": "node scripts/merge-coverage.cjs",
+    "e2e": "testcafe chrome e2e --client-logs --reporter spec --screenshots-on-fails --screenshots ./e2e/screenshots",
+    "e2e-headless": "testcafe chrome:headless e2e --client-logs --reporter spec --screenshots-on-fails --screenshots ./e2e/screenshots",
+    "format": "prettier --write .",
+    "format-check": "prettier --check .",
+    "lint": "eslint . --fix",
+    "lint-check": "eslint .",
+    "serve": "serve -s build",
+    "start": "react-scripts start",
+    "start-coverage": "cross-env NODE_ENV=coverage craco start",
+    "test": "jest",
+    "test-coverage": "jest --coverage"
+  },
+  "type": "module",
+  "version": "1.0.0"
 }
