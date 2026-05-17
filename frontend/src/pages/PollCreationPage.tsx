@@ -1,15 +1,10 @@
-import { Calendar, momentLocalizer } from 'react-big-calendar';
-import { parseISO } from 'date-fns';
-import React, { useState } from 'react';
-import 'react-big-calendar/lib/css/react-big-calendar.css';
-import { format, startOfWeek, getDay } from 'date-fns';
-import { dateFnsLocalizer } from 'react-big-calendar';
-import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
-import { CiSearch, TbError404 } from '../icons';
+import { faClipboard, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTriangleExclamation, faClipboard } from '@fortawesome/free-solid-svg-icons';
-import styles from './PollCreationPage.module.css';
+import { format, getDay, parseISO, startOfWeek } from 'date-fns';
+import { useRef, useState } from 'react';
+import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+import { useForm } from 'react-hook-form';
 import Banner from '../components/Banner/Banner';
 
 const API_BASE = process.env.REACT_APP_API_BASE;
@@ -37,6 +32,19 @@ export default function CreatePollPage() {
   const [createdPoll, setCreatedPoll] = useState(null);
 
   const pollTitle = watch('pollTitle');
+  const inputRef = useRef(null);
+
+  const handleCopy = async () => {
+    const value = inputRef.current?.value;
+    if (!value) return;
+    try {
+      await navigator.clipboard.writeText(value);
+    } catch (err) {
+      // Fallback
+      inputRef.current?.select();
+      document.execCommand("copy");
+    }
+  };
 
   const handleSelectSlot = ({ start, end }) => {
     const newSlot = { start, end };
@@ -140,8 +148,8 @@ export default function CreatePollPage() {
                 <div className="inputbar">
                   <label>Link:</label>
                   <input
+                    ref={inputRef}
                     type="text"
-                    placeholder="Meeting"
                     className="input"
                     readOnly
                     value={`${window.location.origin}${process.env.PUBLIC_URL}/polls/${createdPoll.code}`}
@@ -149,14 +157,7 @@ export default function CreatePollPage() {
                   />
                 </div>
                 <div className="buttonbar">
-                  <button
-                    className="button"
-                    onClick={() =>
-                      navigator.clipboard.writeText(
-                        `${window.location.origin}/polls/${createdPoll.code}`,
-                      )
-                    }
-                  >
+                  <button className="button" onClick={handleCopy}>
                     <FontAwesomeIcon icon={faClipboard} style={{ marginRight: '5pt' }} />
                     Link kopieren
                   </button>

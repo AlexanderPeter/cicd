@@ -7,7 +7,7 @@ export default function NotFoundPage() {
     <>
       <Banner title="Terminumfragen" />
       <div className="dashboard">
-        <Link to=".">
+        <Link to="/">
           <div className="panel shadow">
             <header className="titlebar">
               <h2>Zurück zur Hauptseite</h2>
