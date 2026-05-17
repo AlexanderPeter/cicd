@@ -98,7 +98,6 @@ pipeline {
                 sh """
                     echo "Starting SonarQube analysis of $PROJECT_NAME"
                     echo "SONAR_SCANNER_OPTS=$SONAR_SCANNER_OPTS"
-                    echo "NODE_OPTIONS=$NODE_OPTIONS"
                 """
                 script {
                     def scannerHome = tool "sonar-scanner"
