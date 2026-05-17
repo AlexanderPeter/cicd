@@ -1,9 +1,9 @@
 def withDbCredentials(body) {
     withCredentials([
         usernamePassword(
-            credentialsId: 'alexander-peter-db-credentials',
-            usernameVariable: 'DB_USER',
-            passwordVariable: 'DB_PASSWORD'
+            credentialsId: "alexander-peter-db-credentials",
+            usernameVariable: "DB_USER",
+            passwordVariable: "DB_PASSWORD"
         )
     ]) {
         body()
@@ -15,7 +15,7 @@ pipeline {
 
     options {
         disableConcurrentBuilds()
-        timeout(time: 10, unit: 'MINUTES')
+        timeout(time: 10, unit: "MINUTES")
     }
 
     environment {
@@ -29,13 +29,13 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
+        stage("Checkout") {
             steps {
                 checkout scm
             }
         }
         
-        stage('Start Database') {
+        stage("Start Database") {
             steps {
                 withDbCredentials {
                     sh """
@@ -59,12 +59,12 @@ pipeline {
             }
         }
         
-        stage('Initialize Database') {
+        stage("Initialize Database") {
             steps {
                 withDbCredentials {
                     sh """
-                        TABLE_EXISTS=$(docker exec $DB_CONTAINER psql -U $DB_USER -d $DB_NAME -tAc "SELECT to_regclass('public.poll')")
-                        if [ "$TABLE_EXISTS" = "" ]; then
+                        TABLE_EXISTS=\$(docker exec $DB_CONTAINER psql -U $DB_USER -d $DB_NAME -tAc "SELECT to_regclass('public.poll')")
+                        if [ "\$TABLE_EXISTS" = "" ]; then
                             echo "Initializing schema..."
                             docker exec -i $DB_CONTAINER psql -U $DB_USER -d $DB_NAME < database/schema.sql
                         else
@@ -75,9 +75,9 @@ pipeline {
             }
         }
 
-        stage('Build Frontend') {
+        stage("Build Frontend") {
             steps {
-                dir('frontend') {
+                dir("frontend") {
                     sh """
                         npm ci
                         GENERATE_SOURCEMAP=false \
@@ -90,9 +90,9 @@ pipeline {
             }
         }
 
-        stage('SonarQube Analysis') {
+        stage("SonarQube Analysis") {
             when {
-                branch 'develop'
+                branch "develop"
             }
             steps {
                 sh """
@@ -101,8 +101,8 @@ pipeline {
                     echo "NODE_OPTIONS=$NODE_OPTIONS"
                 """
                 script {
-                    def scannerHome = tool 'sonar-scanner'
-                    withSonarQubeEnv('SonarQube') {
+                    def scannerHome = tool "sonar-scanner"
+                    withSonarQubeEnv("SonarQube") {
                         sh """
                         ${scannerHome}/bin/sonar-scanner \
                           -Dsonar.projectKey=${PROJECT_NAME} \
@@ -113,11 +113,11 @@ pipeline {
             }
         }
         
-        stage('Deploy Frontend') {
+        stage("Deploy Frontend") {
             when {
                 anyOf {
-                    branch 'master'
-                    branch 'develop'
+                    branch "master"
+                    branch "develop"
                 }
             }
             steps {
@@ -133,11 +133,11 @@ pipeline {
         }
 
         
-        stage('Deploy Backend') {
+        stage("Deploy Backend") {
             when {
                 anyOf {
-                    branch 'master'
-                    branch 'develop'
+                    branch "master"
+                    branch "develop"
                 }
             }
             steps {
