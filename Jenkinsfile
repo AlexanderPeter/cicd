@@ -41,18 +41,18 @@ pipeline {
                     sh """
                         echo "Starting DB with workspace $WORKSPACE"
                         
-                        docker stop $DB_CONTAINER || true
-                        docker rm $DB_CONTAINER || true
+                        docker stop ${DB_CONTAINER} || true
+                        docker rm ${DB_CONTAINER} || true
 
                         docker run -d \
-                            --name $DB_CONTAINER \
+                            --name ${DB_CONTAINER} \
                             --restart unless-stopped \
                             --network infra-net \
-                            -e POSTGRES_USER=$DB_USER \
-                            -e POSTGRES_PASSWORD=$DB_PASSWORD \
-                            -e POSTGRES_DB=$DB_NAME \
-                            -v $DB_VOLUME:/var/lib/postgresql/data \
-                            -v $WORKSPACE/database:/docker-entrypoint-initdb.d \
+                            -e POSTGRES_USER=${DB_USER} \
+                            -e POSTGRES_PASSWORD=${DB_PASSWORD} \
+                            -e POSTGRES_DB=${DB_NAME} \
+                            -v "${DB_VOLUME}:/var/lib/postgresql/data" \
+                            -v "${WORKSPACE}/database:/docker-entrypoint-initdb.d" \
                             postgres:17
                     """
                 }
@@ -63,10 +63,10 @@ pipeline {
             steps {
                 withDbCredentials {
                     sh """
-                        TABLE_EXISTS=\$(docker exec $DB_CONTAINER psql -U $DB_USER -d $DB_NAME -tAc "SELECT to_regclass('public.poll')")
+                        TABLE_EXISTS=\$(docker exec ${DB_CONTAINER} psql -U ${DB_USER} -d ${DB_NAME} -tAc "SELECT to_regclass('public.poll')")
                         if [ "\$TABLE_EXISTS" = "" ]; then
                             echo "Initializing schema..."
-                            docker exec -i $DB_CONTAINER psql -U $DB_USER -d $DB_NAME < database/schema.sql
+                            docker exec -i ${DB_CONTAINER} psql -U ${DB_USER} -d ${DB_NAME} < database/schema.sql
                         else
                             echo "Database already initialized."
                         fi
@@ -120,12 +120,12 @@ pipeline {
             }
             steps {
                 sh """
-                    echo "Deploying frontend to $TARGET_DIR"
+                    echo "Deploying frontend to ${TARGET_DIR}"
 
-                    mkdir -p "$TARGET_DIR"
-                    rm -rf "$TARGET_DIR"/*
+                    mkdir -p "${TARGET_DIR}"
+                    rm -rf "${TARGET_DIR}"/*
 
-                    cp -r frontend/build/* "$TARGET_DIR"/
+                    cp -r frontend/build/* "${TARGET_DIR}"/
                 """
             }
         }
@@ -141,17 +141,17 @@ pipeline {
             steps {
                 withDbCredentials {
                     sh """
-                        docker build -t $BACKEND_CONTAINER backend/
+                        docker build -t ${BACKEND_CONTAINER} backend/
                         
-                        docker stop $BACKEND_CONTAINER || true
-                        docker rm $BACKEND_CONTAINER || true
+                        docker stop ${BACKEND_CONTAINER} || true
+                        docker rm ${BACKEND_CONTAINER} || true
 
                         docker run -d \
-                            --name $BACKEND_CONTAINER \
+                            --name ${BACKEND_CONTAINER} \
                             --restart unless-stopped \
                             --network infra-net \
-                            -e DATABASE_URL="postgresql://$DB_USER:$DB_PASSWORD@$DB_CONTAINER:5432/$DB_NAME" \
-                            $BACKEND_CONTAINER
+                            -e DATABASE_URL="postgresql://${DB_USER}:${DB_PASSWORD}@${DB_CONTAINER}:5432/${DB_NAME}" \
+                            ${BACKEND_CONTAINER}
                     """
                 }
             }
