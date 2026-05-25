@@ -14,6 +14,10 @@ def create_app():
     def index():
         return "API is running"
 
+    @app.route("/health")
+    def health():
+        return {"status": "ok"}, 200
+
     return app
 
 

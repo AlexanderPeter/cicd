@@ -39,11 +39,8 @@ pipeline {
             steps {
                 withDbCredentials {
                     sh """
-                        echo "Starting DB with workspace $WORKSPACE"
-                        
-                        docker stop ${DB_CONTAINER} || true
-                        docker rm ${DB_CONTAINER} || true
-
+                        echo "Starting DB with workspace ${WORKSPACE}"
+                        docker rm -f "${DB_CONTAINER}" 2>/dev/null || true
                         docker run -d \
                             --name ${DB_CONTAINER} \
                             --restart unless-stopped \
@@ -121,10 +118,8 @@ pipeline {
             steps {
                 sh """
                     echo "Deploying frontend to ${TARGET_DIR}"
-
                     mkdir -p "${TARGET_DIR}"
                     rm -rf "${TARGET_DIR}"/*
-
                     cp -r frontend/build/* "${TARGET_DIR}"/
                 """
             }
@@ -142,10 +137,7 @@ pipeline {
                 withDbCredentials {
                     sh """
                         docker build -t ${BACKEND_CONTAINER} backend/
-                        
-                        docker stop ${BACKEND_CONTAINER} || true
-                        docker rm ${BACKEND_CONTAINER} || true
-
+                        docker rm -f "${BACKEND_CONTAINER}" 2>/dev/null || true
                         docker run -d \
                             --name ${BACKEND_CONTAINER} \
                             --restart unless-stopped \
