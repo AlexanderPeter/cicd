@@ -1,7 +1,9 @@
-from flask import Flask
+from flask import Flask, jsonify
+from sqlalchemy import text
 from flask_cors import CORS
 from routes.poll_routes import poll_bp
 from routes.vote_routes import vote_bp
+from persistence.database import get_session
 
 
 def create_app():
@@ -14,9 +16,20 @@ def create_app():
     def index():
         return "API is running"
 
-    @app.route("/health")
-    def health():
-        return {"status": "ok"}, 200
+    @app.route("/status")
+    def status():
+        return jsonify({"message": "online", "color": "green"})
+
+    @app.route("/status_db")
+    def status_db():
+        try:
+            session = get_session()
+            session.execute(text("SELECT 1"))
+            session.close()
+            return jsonify({"message": "online", "color": "green"})
+
+        except Exception:
+            return jsonify({"message": "offline", "color": "red"})
 
     return app
 
